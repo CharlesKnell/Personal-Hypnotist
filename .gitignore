@@ -1,0 +1,10 @@
+ # directories
+.venv/
+build/
+.idea/
+Saved/
+dist/
+
+# files
+*.spec
+

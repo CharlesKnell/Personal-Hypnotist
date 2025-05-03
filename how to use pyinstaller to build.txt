@@ -1,0 +1,2 @@
+pyinstaller --onefile --add-data=formulas:formulas  --name PersonalHypnotist --version-file version_info.txt personal_hypnotist.pyw
+
