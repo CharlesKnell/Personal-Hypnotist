@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Personal Hypnotist"
-#define MyAppVersion "1.1.0"
+#define MyAppVersion "1.1.1"
 #define MyAppPublisher "Charles Knell"
 #define MyAppURL "http://charlesknell.net"
 #define MyAppExeName "PersonalHypnotist.exe"
@@ -30,7 +30,7 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 
 OutputDir=C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist\Inno-Install
-OutputBaseFilename=Setup-Personal-Hypnotist-1.1.0
+OutputBaseFilename=Setup-Personal-Hypnotist-1.1.1
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern

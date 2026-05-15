@@ -31,6 +31,11 @@ def on_key(event: KeyEvent):
         pygame.mixer.music.stop()
         pygame.quit()
         plt.close(event.canvas.figure)
+    elif event.key == ' ':                          # ← NEW
+        if pygame.mixer.music.get_busy():           # ← NEW
+            pygame.mixer.music.pause()              # ← NEW (toggle pause)
+        else:                                       # ← NEW
+            pygame.mixer.music.unpause()
 
 fig.canvas.manager.toolbar.pack_forget() # ignore this error
 fig.canvas.mpl_connect('key_press_event', on_key) # ignore this error
