@@ -1,2 +1,3 @@
+cd  C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist
+.venv\Scripts\activate
 pyinstaller --onefile --add-data=formulas:formulas  --name PersonalHypnotist --version-file version_info.txt personal_hypnotist.pyw
-

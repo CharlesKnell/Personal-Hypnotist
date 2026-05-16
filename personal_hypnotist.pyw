@@ -1,89 +1,109 @@
-import os
-import sys
-from tkinter import filedialog
-import pygame
-import matplotlib
-import matplotlib.pyplot as plt
+import warnings
 import numpy as np
-from matplotlib.animation import FuncAnimation
-from matplotlib.backend_bases import KeyEvent
+import sys
+import os
+import ctypes
+import tkinter as tk
+from tkinter import filedialog
+
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    import pygame
 
 def resource_path(relative_path):
     """Get absolute path to resource, works for dev and for PyInstaller."""
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
-matplotlib.use('TkAgg')
+def main():
+    formulas_folder = resource_path("formulas")
+    print(f"formulas folder: {formulas_folder}")
 
-# Spiral parameters
-a = 0
-b = 0.0005
-theta = np.linspace(0, 8 * np.pi, 2000) #2nd arg controls how tight
-r = a + b * theta
-x = r * np.cos(theta) * 0.2
-y = r * np.sin(theta) * 0.2
+    root = tk.Tk()
+    root.withdraw()
+    mp3_file = filedialog.askopenfilename(
+        title="Select an MP3 file to play",
+        filetypes=[("MP3 Files", "*.mp3")],
+        initialdir=formulas_folder
+    )
+    root.destroy()
 
-# Set up the figure and axes
-fig = plt.figure(facecolor='black')
+    if not mp3_file:
+        print("No MP3 file selected. Exiting.")
+        sys.exit(1)
 
-def on_key(event: KeyEvent):
-    if event.key == 'escape':
-        pygame.mixer.music.stop()
-        pygame.quit()
-        plt.close(event.canvas.figure)
-    elif event.key == ' ':                          # ← NEW
-        if pygame.mixer.music.get_busy():           # ← NEW
-            pygame.mixer.music.pause()              # ← NEW (toggle pause)
-        else:                                       # ← NEW
-            pygame.mixer.music.unpause()
+    pygame.mixer.init()
+    pygame.mixer.music.load(mp3_file)
+    pygame.mixer.music.play()
 
-fig.canvas.manager.toolbar.pack_forget() # ignore this error
-fig.canvas.mpl_connect('key_press_event', on_key) # ignore this error
+    pygame.init()
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN | pygame.DOUBLEBUF)
+    width, height = screen.get_size()
+    pygame.display.set_caption("Hypnotic Spiral")
+    ctypes.windll.user32.SetForegroundWindow(pygame.display.get_wm_info()['window'])
+    clock = pygame.time.Clock()
 
-manager = plt.get_current_fig_manager()
-manager.full_screen_toggle()  # TkAgg or compatible backends
+    cx, cy = width // 2, height // 2
+    x = np.arange(width) - cx
+    y = np.arange(height) - cy
+    X, Y = np.meshgrid(x, y)
+    r = np.sqrt(X**2 + Y**2)
+    theta = np.arctan2(Y, X)
 
-ax = fig.add_subplot(111)
-ax.set_facecolor('black')
-max_r = float(np.max(r)) # controls the size of the spiral
-ax.set_xlim(-0.9 * max_r, 0.9 * max_r)
-ax.set_ylim(-0.5 * max_r, 0.5 * max_r)
+    max_r = np.sqrt(cx**2 + cy**2)
+    num_bands = 8
 
-ax.set_xticks([])
-ax.set_yticks([])
+    # lower exponent = narrower center bands, wider outer bands
+    exp = 0.38
+    r_norm = ((r ** exp) * num_bands / (max_r ** exp)).astype(np.float32)
+    theta_norm = (theta / (2 * np.pi)).astype(np.float32)
+    # precompute static difference — only rot_norm changes each frame
+    base = r_norm - theta_norm
 
-# Create a single line object for the spiral
-line, = ax.plot(x, y, color='white', linewidth=2)
+    surf = pygame.Surface((width, height))
+    rotation = 0.0
+    speed = -384.0  # degrees per second; negative reverses direction
 
-# Update function for animation
-def update(frame):
-    angle = -np.radians(frame)
-    cos_a, sin_a = np.cos(angle), np.sin(angle)
-    x_rot = x * cos_a - y * sin_a
-    y_rot = x * sin_a + y * cos_a
-    line.set_data(x_rot, y_rot)
-    return line,
+    clock.tick()  # seed the clock before the loop
+    running = True
+    while running:
+        dt = clock.tick(60) / 1000.0  # seconds elapsed since last frame
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    pygame.mixer.music.stop()
+                    running = False
+                elif event.key == pygame.K_LEFT:
+                    speed -= 30.0
+                elif event.key == pygame.K_RIGHT:
+                    speed += 30.0
+                elif event.key == pygame.K_SPACE:
+                    pygame.mixer.music.pause() if pygame.mixer.music.get_busy() else pygame.mixer.music.unpause()
+
+        rot_norm = np.float32(rotation / 360.0)
+        spiral_val = (base + rot_norm) % np.float32(1.0)
+        # Transpose because pygame surfarray uses (x, y) ordering
+        mask = (spiral_val < 0.5).T
+
+        pixel_array = pygame.surfarray.pixels3d(surf)
+        val = np.where(mask, 255, 0).astype(np.uint8)
+        pixel_array[:, :, 0] = val
+        pixel_array[:, :, 1] = val
+        pixel_array[:, :, 2] = val
+        del pixel_array
+
+        screen.blit(surf, (0, 0))
+        pygame.display.flip()
+
+        rotation = (rotation + speed * dt) % 360
+
+    pygame.quit()
+    sys.exit()
 
 
-# Animate
-ani = FuncAnimation(fig, update, frames=np.arange(0, 360, 5),
- interval=25, repeat=True) # 3rd arg of np.arrange is the rotate step
-
-formulas_folder = resource_path("formulas")
-print(f"formulas folder: {formulas_folder}")
-
-mp3_file = filedialog.askopenfilename(
-    title="Select an MP3 file to play",
-    filetypes=[("MP3 Files", "*.mp3")],
-    initialdir=formulas_folder
-)
-
-if not mp3_file:
-    print("No MP3 file selected. Exiting.")
-    sys.exit(1)
-
-pygame.mixer.init()
-pygame.mixer.music.load(mp3_file)
-pygame.mixer.music.play()
-
-plt.show()
+if __name__ == "__main__":
+    main()
