@@ -62,12 +62,12 @@ def main():
 
     surf = pygame.Surface((width, height))
     rotation = 0.0
-    speed = -384.0  # degrees per second; negative reverses direction
+    speed = -120.0  # degrees per second; negative reverses direction
 
     clock.tick()  # seed the clock before the loop
     running = True
     while running:
-        dt = clock.tick(60) / 1000.0  # seconds elapsed since last frame
+        dt = clock.tick(60) / 1000  # seconds elapsed since last frame
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
