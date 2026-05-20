@@ -5,10 +5,18 @@ When launched, a file picker lets you choose from the available MP3 files to pla
 
 ## Runtime Controls
 
-| Key           | Action                  |
-|---------------|-------------------------|
-| `LEFT` arrow  | Decrease rotation speed |
-| `RIGHT` arrow | Increase rotation speed |
-| `SPACE`       | Pause / Unpause audio   |
-| `ESC`         | Exit                    |
+| Key           | Action                                         |
+|---------------|------------------------------------------------|
+| `LEFT` arrow  | Decrease rotation speed                        |
+| `RIGHT` arrow | Increase rotation speed                        |
+| `SPACE`       | Pause / Unpause audio                          |
+| `S`           | Hide spiral (minimize to taskbar); audio plays |
+| `ESC`         | Exit                                           |
 
+## Linux / WSL2
+
+Install tkinter before running:
+
+```
+sudo apt install python3-tk
+```

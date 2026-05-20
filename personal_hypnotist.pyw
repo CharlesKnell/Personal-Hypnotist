@@ -32,7 +32,7 @@ def main():
         print("No MP3 file selected. Exiting.")
         sys.exit(1)
 
-    pygame.mixer.init()
+    pygame.mixer.init(buffer=32768)
     pygame.mixer.music.load(mp3_file)
     pygame.mixer.music.play()
 
@@ -40,7 +40,8 @@ def main():
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN | pygame.DOUBLEBUF)
     width, height = screen.get_size()
     pygame.display.set_caption("Hypnotic Spiral")
-    ctypes.windll.user32.SetForegroundWindow(pygame.display.get_wm_info()['window'])
+    if sys.platform == 'win32':
+        ctypes.windll.user32.SetForegroundWindow(pygame.display.get_wm_info()['window'])
     clock = pygame.time.Clock()
 
     cx, cy = width // 2, height // 2
@@ -81,6 +82,8 @@ def main():
                     speed -= 30.0
                 elif event.key == pygame.K_RIGHT:
                     speed += 30.0
+                elif event.key == pygame.K_s:
+                    pygame.display.iconify()
                 elif event.key == pygame.K_SPACE:
                     pygame.mixer.music.pause() if pygame.mixer.music.get_busy() else pygame.mixer.music.unpause()
 

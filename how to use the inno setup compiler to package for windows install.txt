@@ -1,0 +1,4 @@
+Install the free Inno Setup Compiler (for windows) at https://JRSoftware.org
+
+Update the Inno-Install/Setup.iss file as required and run it.
+This file currently places the windows install file in the Inno-Install folder.
