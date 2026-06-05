@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Personal Hypnotist"
-#define MyAppVersion "2.0.0"
+#define MyAppVersion "2.1.0"
 #define MyAppPublisher "Charles Knell"
 #define MyAppURL "http://charlesknell.net"
 #define MyAppExeName "PersonalHypnotist.exe"
@@ -30,7 +30,7 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 
 OutputDir=C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist\Inno-Install
-OutputBaseFilename=Setup-Personal-Hypnotist-2.0.0
+OutputBaseFilename=Setup-Personal-Hypnotist-2.1.0
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -41,12 +41,13 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
+[Dirs]
+Name: "{userdocs}\personal-hypnotist"
+
 [Files]
 Source: "C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "C:\Users\charl\PYTHON\YF-Analyzer\yfsp.ini"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "C:\Users\charl\PYTHON\YF-Analyzer\LICENSE.md"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "C:\Users\charl\PYTHON\YF-Analyzer\README.md"; DestDir: "{app}"; Flags: ignoreversion    
-Source: "C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist\Inno-Install\{#MyAppIcoName}" ; DestDir: "{app}"
+Source: "C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist\Inno-Install\{#MyAppIcoName}"; DestDir: "{app}"
+Source: "C:\Users\charl\OneDrive\Desktop\PYTHON\personal_hypnotist\formulas\*"; DestDir: "{userdocs}\personal-hypnotist"; Flags: onlyifdoesntexist
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]

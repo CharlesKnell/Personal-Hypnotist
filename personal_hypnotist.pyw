@@ -15,9 +15,16 @@ def resource_path(relative_path):
     base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
+def get_documents_folder():
+    if sys.platform == 'win32':
+        buf = ctypes.create_unicode_buffer(260)  # MAX_PATH
+        ctypes.windll.shell32.SHGetFolderPathW(None, 5, None, 0, buf)  # CSIDL_PERSONAL
+        return buf.value
+    return os.path.join(os.path.expanduser("~"), "Documents")
+
 def main():
-    formulas_folder = resource_path("formulas")
-    print(f"formulas folder: {formulas_folder}")
+    docs_folder = os.path.join(get_documents_folder(), "personal-hypnotist")
+    formulas_folder = docs_folder if os.path.isdir(docs_folder) else resource_path("formulas")
 
     root = tk.Tk()
     root.withdraw()
