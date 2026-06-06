@@ -53,4 +53,9 @@ Two files must be updated together when releasing a new version:
 
 ## Formulas folder
 
-`formulas/` holds MP3 audio tracks and optional `.txt` companion scripts. This folder is bundled into the exe by PyInstaller and is the default directory shown in the file-open dialog.
+The `formulas` folder in the project root holds MP3 audio tracks and optional `.txt` companion scripts. It has two roles:
+
+- **PyInstaller bundle**: the formulas folder and content is embedded in the exe via `--add-data=formulas:formulas`. Used as the file-picker `initialdir` fallback when running in dev mode (i.e. `Documents\personal-hypnotist` does not exist).
+- **Inno installer source**: the formulas content is copied verbatim to `Documents\personal-hypnotist\` on the user's machine during install (`onlyifdoesntexist` flag preserves any files the user has added or modified on reinstall).
+
+At runtime, `get_documents_folder()` calls `SHGetFolderPathW` (Windows) or `~/Documents` (Linux) to locate the user's actual Documents folder — this handles OneDrive redirection. The app then prefers `Documents\personal-hypnotist` if it exists, otherwise falls back to the bundled copy via `resource_path("formulas")`.
