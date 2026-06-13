@@ -19,14 +19,26 @@ which I'm giving away for free.
 
 ## Linux Installation
 
-Install tkinter and numpy:
+Install system dependencies:
 ```
-sudo apt install python3-tk
-sudo apt install python3-numpy
+sudo apt install python3-tk python3-numpy python3-venv
 ```
-Place the formulas folder and its contents in the same folder as personal_hypnotist.pyw
 
-Invoke in a terminal using: python3 personal_hypnotist.pyw
+Copy `personal_hypnotist.pyw` to a project folder of your choice, then set up a virtual environment (venv) in that 
+same folder:
+```
+python3 -m venv .venv      (creates a venv)
+source .venv/bin/activate  (activates the venv)
+pip install pygame
+```
+
+Place your MP3 files in `~/Documents/personal-hypnotist/`. If that folder does not exist, the app falls back to a 
+`formulas/` folder in the same directory as `personal_hypnotist.pyw`.
+
+Run from a terminal in the project folder:
+```
+.venv/bin/python3 personal_hypnotist.pyw
+```
 
 
 ## Audio File Storage
