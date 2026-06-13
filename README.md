@@ -24,7 +24,7 @@ Install tkinter and numpy:
 sudo apt install python3-tk
 sudo apt install python3-numpy
 ```
-Place the formulas folder in the same folder as personal_hypnotist.pyw
+Place the formulas folder and its contents in the same folder as personal_hypnotist.pyw
 
 Invoke in a terminal using: python3 personal_hypnotist.pyw
 
