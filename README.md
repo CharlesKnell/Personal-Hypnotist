@@ -37,7 +37,8 @@ Audio files (MP3) are stored in:
 Documents\personal-hypnotist\
 ```
 
-Add your own MP3 files to this folder and they will appear in the file picker at launch.
+Add your own MP3 files to this folder and they will appear in the file picker at launch. When this folder exists, 
+a Windows reinstallation of the Personal Hypnotist will not overwrite it.
 
 
 ## Runtime Controls
