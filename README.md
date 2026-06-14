@@ -27,7 +27,7 @@ sudo apt install git
 git --version          (verify correct git install)
 cd ~/Programs          (change to the project directory)
 git clone https://github.com/CharlesKnell/Personal-Hypnotist.git      (download the application files)
-mkdir ~/Documents/personal-hypnotist
+mkdir ~/Documents/personal-hypnotist    (use if the directory doesn't already exist)
 cp ~/Programs/Personal-Hypnotist/formulas/* ~/Documents/personal-hypnotist
 ```
 
