@@ -70,7 +70,9 @@ Run from a terminal in the project folder:
 ```
 Or, alternatively, for Ubuntu linux you may create a desktop application:
 ```
-~/Programs/Personal-Hypnotist/linux-ubuntu-install
+cd ~/Programs/Personal-Hypnotist
+chmod u+x linux-ubuntu-install
+./linux-ubuntu-install
 
 Click on the 'Show Apps' icon (lower left hand corner) and look for a new app named 'Personal Hypnotist'.
 ```
