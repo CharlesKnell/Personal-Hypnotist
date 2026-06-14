@@ -8,50 +8,48 @@ I have included MP3 files, "Welcome-to-Hypnosis-by-Roger-Elliott" and "First-Tim
 from http://hypnosisdownloads. If you are new to hypnosis, Use the "Welcome..." file first. I'm not affiliated with 
 "uncommon knowledge" in any way. There are over 1300 self hypnosis audio files available there.
 
-
 ## Windows Installation
 
 https://drive.google.com/file/d/1LkLzdhL6W2WR2k3mjepLqPGSJf3Vjz3o/view?usp=drive_link
 
-You will encounter warnings about this file because I'm not willing to purchase a certificate for an application 
-which I'm giving away for free.
-
+You will encounter warnings about this file because I'm not willing to purchase a security certificate for an 
+application which I'm giving away for free.
 
 ## Linux Installation
-
-Install system dependencies:
 ```
-sudo apt install python3-tk python3-numpy python3-venv
+sudo apt update
+sudo apt install python3-venv
+```
+Install git and Personal Hypnotist files in the project directory. I'm using ~/Programs as the project directory.
+Then, copy the contents of the formulas directory to the user directory.
+```
+sudo apt install git
+git --version          (verify correct git install)
+cd ~/Programs          (change to the project directory)
+git clone https://github.com/CharlesKnell/Personal-Hypnotist.git      (download the application files)
+mkdir ~/Documents/personal-hypnotist
+cp ~/Programs/Personal-Hypnotist/formulas/* ~/Documents/personal-hypnotist
 ```
 
-Copy `personal_hypnotist.pyw` to a project folder of your choice, then set up a virtual environment (venv) in that 
-same folder:
+Set up a virtual environment (venv) in ~/Programs/Personal-Hypnotist:
 ```
 python3 -m venv .venv      (creates a venv)
 source .venv/bin/activate  (activates the venv)
-pip install pygame
+pip install pygame numpy
 ```
-
-Place your MP3 files in `~/Documents/personal-hypnotist/`. If that folder does not exist, the app falls back to a 
-`formulas/` folder in the same directory as `personal_hypnotist.pyw`.
-
-Run from a terminal in the project folder:
-```
-.venv/bin/python3 personal_hypnotist.pyw
-```
-
 
 ## Audio File Storage
 
-Audio files (MP3) are stored in:
-
+The default and user audio files (MP3) are stored in:
 ```
-Documents\personal-hypnotist\
-```
+Windows:
+Documents\personal-hypnotist
 
-Add your own MP3 files to this folder and they will appear in the file picker at launch. When this folder exists, 
+Linux:
+~/Documents/personal-hypnotist
+```
+Add your own MP3 files to this directory. They will appear in the file picker at launch. When this folder exists, 
 a Windows reinstallation of the Personal Hypnotist will not overwrite it.
-
 
 ## Runtime Controls
 
@@ -63,3 +61,9 @@ a Windows reinstallation of the Personal Hypnotist will not overwrite it.
 | `S`                  | Hide spiral (minimize to taskbar); audio plays |
 | `windows` down arrow | minimize window                                |
 | `ESC`                | Exit                                           |
+
+## Invocation
+Run from a terminal in the project folder:
+```
+.venv/bin/python3 personal_hypnotist.pyw
+```
