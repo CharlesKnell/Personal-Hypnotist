@@ -31,7 +31,7 @@ mkdir ~/Documents/personal-hypnotist    (use if the directory doesn't already ex
 cp ~/Programs/Personal-Hypnotist/formulas/* ~/Documents/personal-hypnotist
 ```
 
-Set up a virtual environment (venv) in ~/Programs/Personal-Hypnotist:
+Set up a virtual environment (venv) in ~/Programs/Personal-Hypnotist and install dependencies:
 ```
 python3 -m venv .venv      (creates a venv)
 source .venv/bin/activate  (activates the venv)
