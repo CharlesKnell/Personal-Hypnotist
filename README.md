@@ -15,10 +15,10 @@ https://drive.google.com/file/d/1LkLzdhL6W2WR2k3mjepLqPGSJf3Vjz3o/view?usp=drive
 You will encounter warnings about this file because I'm not willing to purchase a security certificate for an 
 application which I'm giving away for free.
 
-## Linux Installation
+## Linux (Ubuntu) Installation
 ```
 sudo apt update
-sudo apt install python3-venv
+sudo apt install python3-venv python3-tk
 ```
 Install git and Personal Hypnotist files in the project directory. I'm using ~/Programs as the project directory.
 Then, copy the contents of the formulas directory to the user directory.
@@ -33,6 +33,7 @@ cp ~/Programs/Personal-Hypnotist/formulas/* ~/Documents/personal-hypnotist
 
 Set up a virtual environment (venv) in ~/Programs/Personal-Hypnotist and install dependencies:
 ```
+cd ~/Programs/Personal-Hypnotist
 python3 -m venv .venv      (creates a venv)
 source .venv/bin/activate  (activates the venv)
 pip install pygame numpy
