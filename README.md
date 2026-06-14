@@ -68,3 +68,7 @@ Run from a terminal in the project folder:
 ```
 .venv/bin/python3 personal_hypnotist.pyw
 ```
+Or, alternatively, for Ubuntu linux you may create a desktop application:
+```
+~/Programs/Personal-Hypnotist/linux-ubuntu-install
+```

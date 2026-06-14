@@ -1,0 +1,13 @@
+#!/bin/bash
+
+APP_DIR="$(dirname "$(readlink -f "$0")")"
+mkdir -p "$HOME/.local/share/applications"
+cat > "$HOME/.local/share/applications/personal-hypnotist.desktop" <<EOF
+[Desktop Entry]
+Name=Personal Hypnotist
+Exec=$APP_DIR/.venv/bin/python3 $APP_DIR/personal_hypnotist.pyw
+Icon=$APP_DIR/spiral96x96.ico
+Type=Application
+Categories=AudioVideo;
+EOF
+update-desktop-database "$HOME/.local/share/applications/"
