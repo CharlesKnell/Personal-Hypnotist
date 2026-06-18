@@ -63,7 +63,12 @@ a Windows reinstallation of the Personal Hypnotist will not overwrite it.
 | `windows` down arrow | minimize window                                |
 | `ESC`                | Exit                                           |
 
-## Invocation
+## Windows Invocation
+
+Double click on the desktop spiral icon labeled "Personal Hypnotist".
+
+
+## Linux Invocation
 Run from a terminal in the project folder:
 ```
 .venv/bin/python3 personal_hypnotist.pyw
